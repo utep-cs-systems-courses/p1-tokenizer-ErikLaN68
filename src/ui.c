@@ -1,14 +1,15 @@
+#include <stdlib.h>
 #include <stdio.h>
-
 
 int main(int argc, char **argv)
 {
-  puts("Welcome to Tokenizer");
-  
+  puts("Welcome to the Tokenizer");
+  printf("The program name is <%s>\n", *(argv+0));
   while (1){
     
-    puts("Enter a string to be tokenized, type quit to end the program, or enter history to see all pervious entered strings.\n>");
-
+    for (char **p = &argv[1]; *p; p++)
+      printf("%s ",*p);
+    putchar('\n');
     break;
   }
   return 0;
