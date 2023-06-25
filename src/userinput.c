@@ -3,7 +3,7 @@
 char line[MAXLINE];
 
 /* Compares string s to string t and returns 0 if s==t, <0 s<t, or >0 s>t */
-int myStrcmp (char *a, char *b)
+int user_strcmp (char *a, char *b)
 {
   while (*a && *b) {/* until end of string */
     int diff = *a++ - *b++;
