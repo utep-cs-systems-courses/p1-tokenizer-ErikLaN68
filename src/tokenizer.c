@@ -52,7 +52,7 @@ char *token_terminator(char *token)
 int count_tokens(char *str)
 {
   /* checks to see if the user input is empty */
-  if (*str == '\0') return 0;
+  if (*str == '\0'||*str == '\t') return 0;
   
   int counter = 0;
   char *start = token_start(str);

@@ -32,7 +32,6 @@ int main(int argc, char **argv)
       }
     
     else {
-      puts("Will be tokenized");
       printf("The number of tokens in the input is %d\n", count_tokens(pUser));
     }
     
