@@ -4,8 +4,8 @@
 
 int main(int argc, char **argv)
 {
-  printf("--The program name is <%s>\n--", *(argv+0));
-  puts("Welcome to the Tokenizer");
+  printf("The program name is <%s>\n", *(argv+0));
+  puts("--Welcome to the Tokenizer--");
   fputs("Enter a string to be tokenized\n--COMMANDS--\nEnter history to see pervious inputs\nEnter exit to end the program\n",stdout);
   // makes the userString to take input
   char userString[MAX];
@@ -33,8 +33,7 @@ int main(int argc, char **argv)
     
     else {
       puts("Will be tokenized");
-      printf("The number of tokens in the input is %d", count_tokens(pUser));
-      goto done;
+      printf("The number of tokens in the input is %d\n", count_tokens(pUser));
     }
     
   }

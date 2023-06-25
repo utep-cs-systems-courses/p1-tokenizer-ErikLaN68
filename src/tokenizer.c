@@ -6,8 +6,8 @@
    Zero terminators are not printable (therefore false) */
 int space_char(char c)
 {
-  if (c == ' '||c == '\t') return 1;
-  return 0;
+  if (c == ' '||c == '\t') return 0;
+  return 1;
 }
 
 /* Return true (non-zero) if c is a non-whitespace 
@@ -28,7 +28,7 @@ int non_space_char(char c)
    str does not contain any tokens. */
 char *token_start(char *str)
 {
-  while (space_char(*str)) {
+  while (space_char(*str) == 0) {
     str++;
   }
   if (*str == '\0') {
@@ -39,21 +39,35 @@ char *token_start(char *str)
   }
 }
 
-/* Returns a pointer terminator char following *token */
+/* Returns a pointer to the terminator char following *token */
 char *token_terminator(char *token)
 {
-  while (non_space_char(*token) != 0) {
+  while (non_space_char(*token)) {
     token++;
   }
+  return token;
 }
 
 /* Counts the number of tokens in the string argument. */
 int count_tokens(char *str)
 {
+  /* checks to see if the user input is empty */
+  if (*str == '\0') return 0;
+  
   int counter = 0;
   char *start = token_start(str);
+  char *end = token_terminator(start);
+  while (*end != '\0') {
+    counter++;
+    start = token_start(end);
+    end = token_terminator(start);
+  }
   
-  while (*start != '\0') {
+  if (*end == '\0') counter++;
+  
+  return counter;
+  /* *start != '\0'
+  while (*start) {
     if (space_char(*start)) {
       start++;
     }
@@ -62,7 +76,11 @@ int count_tokens(char *str)
       start = token_start(start);
     }
   }
-  return counter;
+  if (*start == '\0') {
+    counter++;
+  }
+  return counter;*/
+  
 }
 
 /* Returns a fresly allocated new zero-terminated string 
