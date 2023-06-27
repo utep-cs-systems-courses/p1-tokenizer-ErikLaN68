@@ -73,10 +73,12 @@ int count_tokens(char *str)
 char *copy_str(char *inStr, short len)
 {
   char *copy = (char*)malloc((len+1)*sizeof(char));
-  while (*inStr) {
+  int i = 0;
+  while (i<len) {
     *copy = *inStr;
     inStr++;
     copy++;
+    i++;
   }
   *copy++ = '\0';
   return copy-(len+1);
@@ -95,28 +97,32 @@ char **tokenize(char* str)
 {
   int wordCount = count_tokens(str);
   char **tokens = (char**)malloc((wordCount+1)*sizeof(char));
-  char *start = token_start(str);
-  char *end = token_terminator(start);
-  printf("%d\n", (end - start));
-  
-  while (*end) {
-    start = token_start(end);
+  char *start = str;
+  char *end;
+  int i = 0;
+  while (i<wordCount) {
+    start = token_start(start);
     end = token_terminator(start);
-    //*tokens = copy_str(str,token_terminator(str) - token_start(str));
-    printf("%d\n", (end - start));
-    tokens++;
+    tokens[i] = copy_str(start,end-start);
+    start = token_terminator(start);
+    i++;
   }
-  //**tokens++ = '\0';
+  tokens[i] = '\0';
   return tokens;
 }
 
 /* Prints all tokens. */
 void print_tokens(char **tokens)
 {
-  while (**tokens) {
-    printf("%s\n",**tokens);
+  puts("---Tokens---");
+  while (*tokens) {
+    printf("%s\n",*tokens);
+    tokens++;
   }
+  puts("------------");
 }
-
 /* Frees all tokens and the vector containing themx. */
-void free_tokens(char **tokens);
+void free_tokens(char **tokens)
+{
+  free(tokens);
+}
