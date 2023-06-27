@@ -73,6 +73,7 @@ int count_tokens(char *str)
 char *copy_str(char *inStr, short len)
 {
   char *copy = (char*)malloc((len+1)*sizeof(char));
+  char *p = copy;
   int i = 0;
   while (i<len) {
     *copy = *inStr;
@@ -80,8 +81,10 @@ char *copy_str(char *inStr, short len)
     copy++;
     i++;
   }
-  *copy++ = '\0';
-  return copy-(len+1);
+  *copy = '\0';
+  //This works
+  //free(p);
+  return p;
 }
 
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
@@ -103,11 +106,17 @@ char **tokenize(char* str)
   while (i<wordCount) {
     start = token_start(start);
     end = token_terminator(start);
-    tokens[i] = copy_str(start,end-start);
-    start = token_terminator(start);
+    char *pCopy = copy_str(start,end-start);
+    //works here too
+    //free(pCopy);
+    tokens[i] = pCopy;
+    //works here
+    //free(tokens[i]);
+    start = end;
     i++;
   }
   tokens[i] = '\0';
+  //free(tokens[1]);
   return tokens;
 }
 
@@ -115,14 +124,19 @@ char **tokenize(char* str)
 void print_tokens(char **tokens)
 {
   puts("---Tokens---");
-  while (*tokens) {
-    printf("%s\n",*tokens);
-    tokens++;
+  char **temp = tokens;
+  while (*temp) {
+    printf("%s\n",*temp);
+    temp++;
   }
   puts("------------");
 }
 /* Frees all tokens and the vector containing themx. */
 void free_tokens(char **tokens)
 {
+  while (*tokens != 0) {
+    free(*tokens);
+    tokens++;
+  }
   free(tokens);
 }
