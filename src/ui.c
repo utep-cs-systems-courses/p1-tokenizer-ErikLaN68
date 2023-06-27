@@ -14,7 +14,7 @@ int main(int argc, char **argv)
     
     fputs("> ",stdout);
     fgets(userString,sizeof(userString),stdin);
-    printf("echo %s", userString);
+    printf("%s", userString);
 
     // pointer that points to the user input
     char *pUser = userString;
@@ -33,6 +33,9 @@ int main(int argc, char **argv)
     
     else {
       printf("The number of tokens in the input is %d\n", count_tokens(pUser));
+      printf("Using to see if the copy func in tokenizer is working: %s\n", copy_str(pHis,7));
+      char **tokens = tokenize(pUser);
+      //print_tokens(tokens);
     }
     
   }

@@ -65,27 +65,22 @@ int count_tokens(char *str)
   
   if (*end == '\0') counter++;
   
-  return counter;
-  /* *start != '\0'
-  while (*start) {
-    if (space_char(*start)) {
-      start++;
-    }
-    else {
-      counter++;
-      start = token_start(start);
-    }
-  }
-  if (*start == '\0') {
-    counter++;
-  }
-  return counter;*/
-  
+  return counter; 
 }
 
 /* Returns a fresly allocated new zero-terminated string 
    containing <len> chars from <inStr> */
-char *copy_str(char *inStr, short len);
+char *copy_str(char *inStr, short len)
+{
+  char *copy = (char*)malloc((len+1)*sizeof(char));
+  while (*inStr) {
+    *copy = *inStr;
+    inStr++;
+    copy++;
+  }
+  *copy++ = '\0';
+  return copy-(len+1);
+}
 
 /* Returns a freshly allocated zero-terminated vector of freshly allocated 
    space-separated tokens from zero-terminated str.
@@ -96,10 +91,32 @@ char *copy_str(char *inStr, short len);
      tokens[2] = "string" 
      tokens[3] = 0
 */
-char **tokenize(char* str);
+char **tokenize(char* str)
+{
+  int wordCount = count_tokens(str);
+  char **tokens = (char**)malloc((wordCount+1)*sizeof(char));
+  char *start = token_start(str);
+  char *end = token_terminator(start);
+  printf("%d\n", (end - start));
+  
+  while (*end) {
+    start = token_start(end);
+    end = token_terminator(start);
+    //*tokens = copy_str(str,token_terminator(str) - token_start(str));
+    printf("%d\n", (end - start));
+    tokens++;
+  }
+  //**tokens++ = '\0';
+  return tokens;
+}
 
 /* Prints all tokens. */
-void print_tokens(char **tokens);
+void print_tokens(char **tokens)
+{
+  while (**tokens) {
+    printf("%s\n",**tokens);
+  }
+}
 
 /* Frees all tokens and the vector containing themx. */
 void free_tokens(char **tokens);
