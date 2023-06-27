@@ -117,7 +117,8 @@ char **tokenize(char* str)
   //printf("%d\n",i);
   *tokens = '\0';
   //printf("%c\n",*tokens);
-  return topToken;
+  //can change back to topToken if need
+  return tokens - (wordCount);
 }
 
 /* Prints all tokens. */
