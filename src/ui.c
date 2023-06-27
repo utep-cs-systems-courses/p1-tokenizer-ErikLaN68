@@ -11,7 +11,6 @@ int main(int argc, char **argv)
   char userString[MAX];
   
   while (1) {
-    
     fputs("> ",stdout);
     fgets(userString,sizeof(userString),stdin);
     //printf("%s", userString);
