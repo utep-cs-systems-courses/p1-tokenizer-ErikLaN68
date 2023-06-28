@@ -14,6 +14,9 @@ typedef struct s_List {
 /* Initialize the linked list to keep the history. */
 List* init_history();
 
+/* Find the length from the char pointe that is passed to it */
+int string_len(char *str);
+
 /* Add a history item to the end of the list.
    List* list - the linked list
    char* str - the string to store
