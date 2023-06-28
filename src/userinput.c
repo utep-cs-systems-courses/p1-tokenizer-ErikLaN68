@@ -1,20 +1,55 @@
-#include <stdio.h>
+#include "stdio.h"
+#include "stdlib.h"
+#include "tokenizer.h"
+#include "history.h"
 
 /* Compares string s to string t and returns 0 if s==t, <0 s<t, or >0 s>t */
 int user_strcmp (char *a, char *b)
 {
-  while (*a && *b) {/* until end of string */
+  /* until end of string */
+  while (*a && *b) {
     int diff = *a++ - *b++;
-    if (diff) return diff;/* differed within string */
+    if (diff) {
+      return diff;
+    }
   }
   if (!*a && !*b) return 0;/* strings are same length & content */
   return (*a) ? 1 : -1;/* a > b if a is longer */
 }
 
+/*Need to remove the \n character that is put onto the user input*/
 void user_remove_newline (char *str)
 {
   while (*str != '\n') {
     str++;
   }
   *str = '\0';
+  str--;
+  //Handles a possible bug when the user input ends in space or tab
+  if (*str == ' ' || *str == '\t') {
+    *str = '\0';
+  }
+}
+
+/*Checks to see if bang/! was used*/
+int user_bang(char *user)
+{
+  if(*user == '!') return 1;
+  return 0;
+}
+
+/*Used to get the number off the bang input*/
+int get_id(char *user)
+{
+  user++;
+  char *start = user;
+  int len = string_len(start);
+  //printf("len is %d\n",len);
+  //makes a pointer to the cop
+  char *pNum = copy_str(start,len);
+  //Changes the character num to an integer
+  int num = atoi(pNum);
+  free(pNum);
+  //printf("num is %s\n",pNum);
+  return num;
 }

@@ -1,19 +1,17 @@
 #include "stdio.h"
 #include "user.h"
-#include "token.h"
+#include "tokenizer.h"
 #include "history.h"
 
 int main(int argc, char **argv)
 {
   printf("The program name is <%s>\n", *(argv+0));
   puts("--Welcome to the Tokenizer--");
-  fputs("Enter a string to be tokenized\n--COMMANDS--\nEnter history to see pervious inputs\nEnter exit to end the program\n",stdout);
+  fputs("Enter a string to be tokenized\n--COMMANDS--\nEnter history to see previous inputs\nEnter !(history ID) to re tokenize a previous input\nEnter exit to end the program\n",stdout);
   
   // makes the userString to take input
   char userString[MAX];
-  // list used for history
-  //List linkList;
-  //linkList.root = NULL;
+  // list used for history. Is empty.
   List *linkList = init_history();
     
   while (1) {
@@ -30,12 +28,40 @@ int main(int argc, char **argv)
       print_history(linkList);
       }
 
+    // checks for a user inputed bang
+    else if (user_bang(pUser)) {
+      //puts("In Bang");
+      if (linkList->root == NULL) {
+	puts("History is empty");
+      }
+      else {
+	int id = get_id(pUser);
+	printf("The id inputed is %d\n",id);
+	char *hisStr = get_history(linkList,id);
+	if (hisStr != NULL) {
+	  printf("The string with that id is %s\n",hisStr);
+	  printf("The number of tokens in the input is %d\n", count_tokens(hisStr));
+	  //Adds user string to history list
+	  add_history(linkList,hisStr);
+	  //tokenizes the input
+	  char **tokens = tokenize(hisStr);
+	  print_tokens(tokens);
+	  free_tokens(tokens);
+	}
+	else {
+	  puts("Not a history id");
+	}
+      }
+    }
+
     // compares user input to "exit" to leave the program
     else if (user_strcmp(pUser,pExit) == 0) {
       puts("Thanks for using the program");
+      free_history(linkList);
       goto done;
       }
     
+    //Tokenizes the user input
     else {
       //prints number of tokens
       printf("The number of tokens in the input is %d\n", count_tokens(pUser));
@@ -46,7 +72,6 @@ int main(int argc, char **argv)
       print_tokens(tokens);
       free_tokens(tokens);
     }
-    
   }
   done:
     return 0;

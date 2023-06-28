@@ -99,7 +99,7 @@ char *copy_str(char *inStr, short len)
 char **tokenize(char* str)
 {
   int wordCount = count_tokens(str);
-  printf("The word count plus 1 is %d\n",(wordCount+1));
+  //printf("The word count plus 1 is %d\n",(wordCount+1));
   //Have to use sizeof(char *) to get the needed size of a pointer//
   char **tokens = (char **)malloc((wordCount+1)*sizeof(char *));
   char **topToken = tokens, *start = str;
@@ -124,13 +124,16 @@ char **tokenize(char* str)
 /* Prints all tokens. */
 void print_tokens(char **tokens)
 {
+  int count = 1;
   puts("---Tokens---");
   while (*tokens) {
-    printf("%s\n",*tokens);
+    printf("[%d]: %s\n",count,*tokens);
     tokens++;
+    count++;
   }
   puts("------------");
 }
+
 /* Frees all tokens and the vector containing themx. */
 void free_tokens(char **tokens)
 {
