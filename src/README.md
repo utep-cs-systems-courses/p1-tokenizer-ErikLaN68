@@ -27,12 +27,3 @@ track of history.
  - history.c has all functions for the linked list and the function that finds
  a the string of the id that is given by !(history id).
  - history.h has all function declarations for history.h
-
-You should document your tokenizer in this file.
-
-This file is written in the refreshingly simple `markdown` text
-formatting language.
-
-To learn about text formatting using markdown, we encourage you to examine 
- - [../README.md](../README.md)
- - the online [Markdown Guide](https://www.markdownguide.org/).
