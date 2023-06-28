@@ -1,6 +1,6 @@
 Project 1: Tokenizer
 ====================
-# Instructions:
+# Instructions and Information
 
 ## How to Run
  - Type "Make" to make the complied file called tokenshell
