@@ -31,6 +31,7 @@ int main(int argc, char **argv)
     // checks for a user inputed bang
     else if (user_bang(pUser)) {
       //puts("In Bang");
+      //checks that list has nodes
       if (linkList->root == NULL) {
 	puts("History is empty");
       }
