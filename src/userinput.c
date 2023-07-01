@@ -23,7 +23,9 @@ void user_remove_newline (char *str)
   while (*str != '\n') {
     str++;
   }
+  //replaces the last character which is \n with \0
   *str = '\0';
+  //Used for check below
   str--;
   //Handles a possible bug when the user input ends in space or tab
   if (*str == ' ' || *str == '\t') {
@@ -34,6 +36,7 @@ void user_remove_newline (char *str)
 /*Checks to see if bang/! was used*/
 int user_bang(char *user)
 {
+  //Just checks first character
   if(*user == '!') return 1;
   return 0;
 }
@@ -41,6 +44,7 @@ int user_bang(char *user)
 /*Used to get the number off the bang input*/
 int get_id(char *user)
 {
+  //increased by one to move past !
   user++;
   char *start = user;
   int len = string_len(start);
